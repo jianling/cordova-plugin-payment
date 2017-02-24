@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:rim="http://www.blackberry.com/ns/widgets"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="cordova-plugin-payment"
+    version="1.0.0">
+    <name>Payment</name>
+    <description>Cordova Payment Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,pay,alipay,weixin</keywords>
+
+    <engines>
+            <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <js-module src="www/payment.js" name="payment">
+        <clobbers target="window.Payment" />
+    </js-module>
+
+    <platform name="browser">
+        <js-module src="src/browser/PaymentProxy.js" name="PaymentProxy">
+            <runs />
+        </js-module>
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+
+        <config-file target="config.xml" parent="/*">
+          // 改到了这里 name修正
+            <feature name="CDVPayment">
+                <param name="ios-package" value="CDVPayment" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+        <framework src="SystemConfiguration.framework" weak="true" />
+        <framework src="CoreTelephony.framework" weak="true" />
+        <framework src="QuartzCore.framework" weak="true" />
+        <framework src="CoreText.framework" weak="true" />
+        <framework src="CoreGraphics.framework" weak="true" />
+        <framework src="UIKit.framework" weak="true" />
+        <framework src="Foundation.framework" weak="true" />
+        <framework src="CFNetwork.framework" weak="true" />
+        <framework src="CoreMotion.framework" weak="true" />
+        <framework src="libc++.tbd" weak="true" />
+        <framework src="libz.tbd" weak="true" />
+
+        <framework src="src/ios/lib/AlipaySDK.framework" custom="true" />
+        <resource-file src="src/ios/lib/AlipaySDK.bundle"/>
+
+        <header-file src="src/ios/CDVPayment.h" />
+        <source-file src="src/ios/CDVPayment.m" />
+
+    </platform>
+
+</plugin>

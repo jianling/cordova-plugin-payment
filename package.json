@@ -1,0 +1,29 @@
+{
+  "name": "cordova-plugin-payment",
+  "version": "1.0.0",
+  "description": "Cordova Payment Plugin",
+  "cordova": {
+    "id": "cordova-plugin-payment",
+    "platforms": [
+      "browser",
+      "ios"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "pay",
+    "alipay",
+    "weixin",
+    "ecosystem:cordova",
+    "cordova-browser",
+    "cordova-ios"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "author": "jianling",
+  "license": "Apache 2.0"
+}
