@@ -25,8 +25,11 @@ var exec = require('cordova/exec');
 
 
 var Payment = {
-    pay: function(signedString, success, failure) {
-        return exec(success, failure, "CDVPayment", "pay", [signedString]);
+    alipay: function(signedString, success, failure) {
+        return exec(success, failure, "CDVPayment", "alipay", [signedString]);
+    },
+    wxpay: function(params, success, failure) {
+        return exec(success, failure, "CDVPayment", "wxpay", [params]);
     }
 };
 

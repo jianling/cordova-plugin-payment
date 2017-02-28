@@ -23,14 +23,14 @@
 
 @implementation CDVPayment
 
-- (void)pay:(CDVInvokedUrlCommand*)command
+- (void)alipay:(CDVInvokedUrlCommand*)command
 {
     NSString *signedString = [command.arguments objectAtIndex:0];
 
     // NOTE: 如果加签成功，则继续执行支付
     if (signedString != nil) {
-        // 应用注册scheme,在AliSDKDemo-Info.plist定义URL types
-        NSString *appScheme = @"alisdkdemo";
+        // 应用注册scheme,在百度云-Info.plist定义URL types
+        NSString *appScheme = @"bceApp";
 
         // NOTE: 调用支付结果开始支付
         [[AlipaySDK defaultService] payOrder:signedString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
@@ -48,6 +48,36 @@
         }];
     }
     return YES;
+}
+
+- (void)wxpay:(CDVInvokedUrlCommand*)command
+{
+    [WXApi registerApp:@"wx0bd0d7deab33f49b"];
+
+    PayReq *request = [[PayReq alloc] init];
+    request.partnerId = @"10000100";
+    request.prepayId = @"1101000000140415649af9fc314aa427";
+    request.package = @"Sign=WXPay";
+    request.nonceStr = @"a462b76e7436e98e0ed6e13c64b4fd1c";
+    request.timeStamp = @"1397527777";
+    request.sign = @"582282D72DD2B03AD892830965F428CB16E7A256";
+
+    [WXApi sendReq:request];
+}
+
+-(void)onResp: (BaseResp*)resp
+{
+    PayResp *response=(PayResp*) resp;
+
+    switch(response.errCode){
+        caseWXSuccess:
+            //服务器端查询支付通知或查询API返回的结果再提示成功
+            NSLog(@"支付成功");
+            break;
+        default:
+            NSLog(@"支付失败，retcode=%d",resp.errCode);
+            break;
+    }
 }
 
 @end

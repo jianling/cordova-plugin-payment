@@ -18,9 +18,14 @@
  */
 
 #import <Cordova/CDVPlugin.h>
+#import "WXApi.h"
+#import "WXApiObject.h"
 
 @interface CDVPayment : CDVPlugin
 
-- (void)pay:(CDVInvokedUrlCommand*)command;
+- (void)alipay:(CDVInvokedUrlCommand*)command;
+
+- (void)wxpay:(CDVInvokedUrlCommand*)command;
+
 
 @end
