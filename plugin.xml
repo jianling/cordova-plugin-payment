@@ -36,6 +36,7 @@
         <clobbers target="window.Payment" />
     </js-module>
 
+    <!-- browser -->
     <platform name="browser">
         <js-module src="src/browser/PaymentProxy.js" name="PaymentProxy">
             <runs />
@@ -107,6 +108,42 @@
         <framework src="src/ios/libs/AlipaySDK.framework" custom="true" />
         <resource-file src="src/ios/libs/AlipaySDK.bundle"/>
 
+    </platform>
+
+    <!--android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Login">
+                <param name="android-package" value="com.baidu.CDVPayment"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity
+                android:name="com.alipay.sdk.app.H5PayActivity"
+                android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+                android:exported="false"
+                android:screenOrientation="behind"
+                android:windowSoftInputMode="adjustResize|stateHidden" >
+            </activity>
+            <activity
+                android:name="com.alipay.sdk.app.H5AuthActivity"
+                android:configChanges="orientation|keyboardHidden|navigation"
+                android:exported="false"
+                android:screenOrientation="behind"
+                android:windowSoftInputMode="adjustResize|stateHidden" >
+            </activity>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file>
+
+        <source-file src="src/android/Payment.java" target-dir="src/com/baidu" />
     </platform>
 
 </plugin>
